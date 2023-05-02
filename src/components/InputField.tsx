@@ -4,6 +4,7 @@ const SERVER = "https://s2dlab.click:443/auth";
 
 export default function InputField() {
   const [apiKey, setApiKey] = useState("");
+  const [fileName, setFileName] = useState("No File uploaded");
 
   const emailRef = useRef<any>();
   const companyNameRef = useRef<any>();
@@ -52,6 +53,7 @@ export default function InputField() {
       alert("Plase fill in the entire form.");
     }
   };
+
   const ClickFile = async () => {
     if (fileRef.current) {
       if (!apiKey) {
@@ -77,6 +79,7 @@ export default function InputField() {
       alert("Please upload the UI screenshot :)");
     }
   };
+
   const ClickCopy = async () => {
     if (!apiKey) {
       alert("Please get API Key first.");
@@ -90,6 +93,11 @@ export default function InputField() {
       }
     }
   };
+
+  const FileChange = () => {
+    setFileName(fileRef.current.value)
+  }
+
   return (
     <>
       <header
@@ -103,7 +111,6 @@ export default function InputField() {
           paddingLeft: 40,
           paddingTop: 20,
           paddingBottom: 20,
-          backgroundColor: "#0c1ea7",
         }}
       >
         <h1 className="PageTitle">Join the waitlist today to be the First!</h1>
@@ -111,7 +118,6 @@ export default function InputField() {
           className="PageTitlePhrase"
           style={{
             color: "#c4fa70",
-            fontFamily: "Kumbh Sans",
             fontWeight: 200,
             fontSize: 22,
             display: "flex",
@@ -130,7 +136,6 @@ export default function InputField() {
         style={{
           color: "#c4fa70",
           fontFamily: "Kumbh Sans",
-          backgroundColor: "#0c1ea7",
         }}
       >
         <div
@@ -158,7 +163,6 @@ export default function InputField() {
                 fontWeight: "Bold",
                 fontSize: 20,
                 color: "#f2f2f2",
-                fontFamily: "Kumbh Sans",
               }}
             >
               Email
@@ -168,7 +172,6 @@ export default function InputField() {
               id="EmailField"
               ref={emailRef}
               style={{
-                borderColor: "gray",
                 borderRadius: 8,
                 maxWidth: "100%",
                 maxHeight: "100%",
@@ -187,7 +190,6 @@ export default function InputField() {
                 fontWeight: "Bold",
                 fontSize: 20,
                 color: "#f2f2f2",
-                fontFamily: "Kumbh Sans",
               }}
             >
               Company Name
@@ -197,7 +199,6 @@ export default function InputField() {
               id="CompanyNameField"
               ref={companyNameRef}
               style={{
-                borderColor: "gray",
                 borderRadius: 8,
                 maxWidth: "100%",
                 maxHeight: "100%",
@@ -216,7 +217,6 @@ export default function InputField() {
                 fontWeight: "Bold",
                 fontSize: 20,
                 color: "#f2f2f2",
-                fontFamily: "Kumbh Sans",
               }}
             >
               Company Size
@@ -226,7 +226,6 @@ export default function InputField() {
               id="CompanySizeField"
               ref={companySizeRef}
               style={{
-                borderColor: "gray",
                 borderRadius: 8,
                 maxWidth: "100%",
                 maxHeight: "100%",
@@ -245,7 +244,6 @@ export default function InputField() {
                 fontWeight: "Bold",
                 fontSize: 20,
                 color: "#f2f2f2",
-                fontFamily: "Kumbh Sans",
               }}
             >
               Role
@@ -255,7 +253,6 @@ export default function InputField() {
               id="RoleField"
               ref={roleRef}
               style={{
-                borderColor: "gray",
                 borderRadius: 8,
                 maxWidth: "100%",
                 maxHeight: "100%",
@@ -274,7 +271,6 @@ export default function InputField() {
                 fontWeight: "Bold",
                 fontSize: 20,
                 color: "#f2f2f2",
-                fontFamily: "Kumbh Sans",
               }}
             >
               Usage & Expectation
@@ -284,7 +280,6 @@ export default function InputField() {
               id="UsageField"
               ref={usageRef}
               style={{
-                borderColor: "gray",
                 borderRadius: 8,
                 maxWidth: "100%",
                 maxHeight: "100%",
@@ -307,7 +302,6 @@ export default function InputField() {
               width: 310,
               height: 50,
               color: "#0c1ea7",
-              fontFamily: "Kumbh Sans",
               fontWeight: "bold",
               fontSize: 20,
             }}
@@ -327,7 +321,6 @@ export default function InputField() {
                 fontWeight: "Bold",
                 fontSize: 20,
                 color: "#c4fa70",
-                fontFamily: "Kumbh Sans",
               }}
             >
               API Key
@@ -345,7 +338,7 @@ export default function InputField() {
                   borderRadius: 8,
                   maxWidth: "100%",
                   maxHeight: "100%",
-                  width: 250,
+                  width: 240,
                   height: 40,
                   color: "#0c1ea7",
                   whiteSpace: "nowrap",
@@ -364,8 +357,8 @@ export default function InputField() {
                   width: 60,
                   height: 40,
                   color: "#f2f2f2",
-                  fontFamily: "Kumbh Sans",
                   fontWeight: 700,
+                  marginLeft: 10,
                 }}
               >
                 Copy
@@ -376,7 +369,6 @@ export default function InputField() {
         <div
           id="ResultFileSubmit"
           style={{
-            backgroundColor: "#0c1ea7",
             paddingLeft: 48,
           }}
         >
@@ -387,7 +379,6 @@ export default function InputField() {
           </i>
           <p
             style={{
-              fontFamily: "Kumbh Sans",
               fontWeight: 200,
               fontSize: 20,
               marginBottom: 15,
@@ -399,21 +390,47 @@ export default function InputField() {
             <br />
             3.Submit the image to earn extra credits
           </p>
-          <input
-            type="file"
-            accept="image/*"
-            id="FileSubmission"
-            ref={fileRef}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "row",
-              color: "#c4fa70",
-              height: 60,
-              fontLanguageOverride: "en",
-              paddingTop: 20,
-            }}
-          ></input>
+          <div id="FileSubmission" style={{ fontSize: 15, fontWeight: 700 }}>
+            <input value={fileName} placeholder="No File uploaded" readOnly
+              style={{
+                display: "inline-block",
+                height: "40px",
+                padding: "0 10px",
+                verticalAlign: "middle",
+                border: "1px solid #dddddd",
+                width: 200,
+                color: "#999999",
+              }} 
+            />
+            <label htmlFor="file" 
+              style={{
+                display: "inline-block",
+                padding: "10px 20px",
+                color: "#ffffff",
+                verticalAlign: "middle",
+                cursor: "pointer",
+                height: "20px",
+                marginLeft: "10px",
+                backgroundColor: "#2483ff",
+                borderRadius: 8,
+              }}
+            >Upload</label> 
+            <input 
+              type="file"
+              accept="image/*"
+              id="file"
+              ref={fileRef}
+              onChange={FileChange}
+              style={{
+                position: "absolute",
+                width: "0",
+                height: "0",
+                padding: "0",
+                overflow: "hidden",
+                border: "0",
+              }}
+            />
+          </div>
           <button
             onClick={ClickFile}
             style={{
@@ -421,9 +438,9 @@ export default function InputField() {
               textAlign: "left",
               fontWeight: "Bold",
               fontSize: 30,
-              fontFamily: "Kumbh Sans",
               marginTop: 20,
               marginBottom: 40,
+              width: 322,
             }}
           >
             Upload the result file

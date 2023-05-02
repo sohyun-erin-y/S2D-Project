@@ -1,10 +1,11 @@
-import React from 'react';
-import './App.css';
 import InputField from './components/InputField';
 
 function App() {
   return (
-    <InputField></InputField>
+    <div style={{backgroundColor: "#0c1ea7"}}>
+    {/* <div style={{backgroundColor: "black"}}> */}
+      <InputField></InputField>
+    </div>
   );
 }
 
