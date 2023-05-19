@@ -5,6 +5,7 @@ const SERVER = "https://s2dlab.click:443/auth";
 export default function InputField() {
   const [apiKey, setApiKey] = useState("");
   const [fileName, setFileName] = useState("No File uploaded");
+  const [isCheck, setIsCheck] = useState(false);
 
   const emailRef = useRef<any>();
   const companyNameRef = useRef<any>();
@@ -12,6 +13,14 @@ export default function InputField() {
   const roleRef = useRef<any>();
   const usageRef = useRef<any>();
   const fileRef = useRef<any>();
+
+  const changeCheck = (e: any) => {
+    if (e.target.checked) {
+      setIsCheck(true);
+    } else {
+      setIsCheck(false);
+    }
+  };
 
   const ClickForm = async () => {
     if (
@@ -21,6 +30,11 @@ export default function InputField() {
       roleRef.current.value &&
       usageRef.current.value
     ) {
+      if (!isCheck) {
+        alert("Please check the privacy policy.");
+        return;
+      }
+
       const userInfo = {
         email: emailRef.current.value,
         companyName: companyNameRef.current.value,
@@ -95,8 +109,8 @@ export default function InputField() {
   };
 
   const FileChange = () => {
-    setFileName(fileRef.current.value)
-  }
+    setFileName(fileRef.current.value);
+  };
 
   return (
     <>
@@ -108,7 +122,7 @@ export default function InputField() {
           fontFamily: "Kumbh Sans",
           fontWeight: 700,
           fontSize: 20,
-          paddingLeft: 40,
+          paddingLeft: "20%",
           paddingTop: 20,
           paddingBottom: 20,
         }}
@@ -142,7 +156,7 @@ export default function InputField() {
           className="WholeInputField"
           style={{
             display: "flex",
-            paddingLeft: 40,
+            paddingLeft: "20%",
             paddingBottom: 30,
             flexDirection: "column",
             columnGap: "10px",
@@ -289,11 +303,58 @@ export default function InputField() {
             />
           </div>
         </div>
+        <div
+          className="PrivacyField1"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "20%",
+            marginBottom: 20,
+          }}
+        >
+          <label
+            style={{
+              textAlign: "left",
+              fontWeight: "Bold",
+              fontSize: 20,
+              color: "#c4fa70",
+            }}
+          >
+            Privacy Policy
+          </label>
+          <p
+            style={{
+              fontSize: 10,
+              width: 300,
+            }}
+          >
+            In submitting this form I agree to email address, company name,
+            company size, and role being used for the purposes of noticing
+            product launch. The information will only be accessed by necessary
+            staff. I understand my data will be held securely and will not be
+            distributed to third parties. I have a right to change or access my
+            information. I understand that when this information is no longer
+            required for this purpose, official procedure will be followed to
+            dispose of my data.
+          </p>
+          <span>
+            <input
+              type="checkbox"
+              onChange={(e) => changeCheck(e)}
+              checked={isCheck}
+              style={{
+                width: 20,
+                height: 20,
+              }}
+            ></input>
+            <label>I have read and agree to the policy.</label>
+          </span>
+        </div>
         <div>
           <button
             onClick={ClickForm}
             style={{
-              marginLeft: 40,
+              marginLeft: "20%",
               marginBottom: 30,
               backgroundColor: "#c4fa70",
               borderRadius: 8,
@@ -311,7 +372,7 @@ export default function InputField() {
           <div
             className="APIKeyField"
             style={{
-              paddingLeft: 40,
+              paddingLeft: "20%",
               paddingBottom: 60,
             }}
           >
@@ -369,7 +430,7 @@ export default function InputField() {
         <div
           id="ResultFileSubmit"
           style={{
-            paddingLeft: 48,
+            paddingLeft: "20%",
           }}
         >
           <h1>How to Earn Extra Credits</h1>
@@ -391,7 +452,10 @@ export default function InputField() {
             3.Submit the image to earn extra credits
           </p>
           <div id="FileSubmission" style={{ fontSize: 15, fontWeight: 700 }}>
-            <input value={fileName} placeholder="No File uploaded" readOnly
+            <input
+              value={fileName}
+              placeholder="No File uploaded"
+              readOnly
               style={{
                 display: "inline-block",
                 height: "40px",
@@ -400,9 +464,10 @@ export default function InputField() {
                 border: "1px solid #dddddd",
                 width: 200,
                 color: "#999999",
-              }} 
+              }}
             />
-            <label htmlFor="file" 
+            <label
+              htmlFor="file"
               style={{
                 display: "inline-block",
                 padding: "10px 20px",
@@ -414,8 +479,10 @@ export default function InputField() {
                 backgroundColor: "#2483ff",
                 borderRadius: 8,
               }}
-            >Upload</label> 
-            <input 
+            >
+              Upload
+            </label>
+            <input
               type="file"
               accept="image/*"
               id="file"
@@ -443,7 +510,7 @@ export default function InputField() {
               width: 322,
             }}
           >
-            Upload the result file
+            Submit the result file
           </button>
         </div>
       </div>
