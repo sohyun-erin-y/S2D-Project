@@ -1,10 +1,9 @@
-import InputField from './components/InputField';
+import Heart from './components/heart';
 
 function App() {
   return (
-    <div style={{backgroundColor: "#0c1ea7"}}>
-    {/* <div style={{backgroundColor: "black"}}> */}
-      <InputField></InputField>
+    <div style={{backgroundColor: "#0c1ea7", height: "100vh"}}>
+      <Heart></Heart>
     </div>
   );
 }
